@@ -297,6 +297,7 @@ Client Requirements (PDF/DOCX)
 - Batch processing with progress
 - Database insertion with transactions
 - Error handling and logging
+- Use ExifTool `-@ argfile` option for batch processing (avoids OS command line length limits)
 
 **Deliverables:**
 - extract-exif.ts (handles TIFF, DNG, ARW, NEF, CR2, CR3, ORF, etc.)
@@ -322,6 +323,8 @@ Client Requirements (PDF/DOCX)
 - RAW file validator (basic checks)
 - Result storage in database
 - Resumable processing (checkpoint/resume)
+- JHOVE optimization: batch multiple files per invocation (reduces JVM startup overhead)
+- Optional parallel JHOVE workers (pool of 2-4) for large batches
 
 **Deliverables:**
 - run-jhove.ts (TIFF files only)
@@ -371,6 +374,7 @@ Client Requirements (PDF/DOCX)
 - Markdown summary generator
 - CSV export utility
 - Interactive report template
+- Bundle SQL.js locally (sql-wasm.js + sql-wasm.wasm) for air-gapped archive environments
 
 **Deliverables:**
 - generate-html-report.ts
@@ -392,6 +396,7 @@ Client Requirements (PDF/DOCX)
 - Shell script generator
 - Fix validation
 - Batch optimization
+- Rigorous shell escaping for file paths (use `shell-quote` or equivalent to prevent injection)
 
 **Deliverables:**
 - generate-fix-script.ts
@@ -412,6 +417,7 @@ Client Requirements (PDF/DOCX)
 - Filename validation
 - Comparison tools (v1 vs v2)
 - Deliverable package builder
+- Signal handling (SIGINT/SIGTERM) for graceful shutdown (close DB, save progress)
 
 **Deliverables:**
 - remove-system-files.ts
