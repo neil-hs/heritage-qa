@@ -70,6 +70,7 @@ export interface ProjectSpec {
     run_jhove: boolean;
     check_raw_validity?: boolean;
     mixed_formats?: boolean;
+    treat_warnings_as_critical?: boolean;
   };
   naming?: {
     pattern?: string;

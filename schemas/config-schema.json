@@ -75,7 +75,8 @@
       "properties": {
         "run_jhove": { "type": "boolean" },
         "check_raw_validity": { "type": "boolean" },
-        "mixed_formats": { "type": "boolean" }
+        "mixed_formats": { "type": "boolean" },
+        "treat_warnings_as_critical": { "type": "boolean", "default": false }
       }
     },
     "naming": {

@@ -1,5 +1,6 @@
 import { Database } from "bun:sqlite";
 import { ImageInfo, ValidationResult, ValidationSummary, ValidationRun, FileType } from "../types";
+import { ExifData } from "../types/exif";
 
 // Helper input types matching DB schema
 export interface ImageInput {
@@ -88,6 +89,53 @@ export function getImageByPath(db: Database, filepath: string): ImageInfo | null
         fileType: row.file_type as FileType,
         fileSize: row.file_size
     };
+}
+
+export function getImageWithExif(db: Database, imageId: number): ImageInfo | null {
+  const row = db.query("SELECT * FROM images WHERE id = $id").get({ $id: imageId }) as any;
+  if (!row) return null;
+
+  const exifRows = db.query("SELECT tag_name, tag_value FROM exif_data WHERE image_id = $id").all({ $id: imageId }) as { tag_name: string; tag_value: string }[];
+  
+  const exif: ExifData = {};
+  for (const { tag_name, tag_value } of exifRows) {
+    // Basic type conversion
+    if (tag_name === 'ImageWidth' || tag_name === 'ImageHeight') {
+      const val = parseInt(tag_value, 10);
+      if (!isNaN(val)) exif[tag_name] = val;
+    } else if (tag_name === 'BitsPerSample') {
+      if (tag_value.includes(' ')) {
+        const parts = tag_value.split(' ').map(s => parseInt(s, 10)).filter(n => !isNaN(n));
+        exif[tag_name] = parts;
+      } else {
+         const val = parseInt(tag_value, 10);
+         if (!isNaN(val)) exif[tag_name] = val;
+      }
+    } else if (tag_name === 'ColorSpace') {
+      const val = parseInt(tag_value, 10);
+      // ColorSpace can be '1' or 'sRGB'. If numeric, store as number, else string.
+      // But typically it's stored as string in DB. 
+      // If it looks like a number, parse it?
+      // PRD says: "1=sRGB". 
+      if (!isNaN(val) && String(val) === tag_value) {
+         exif[tag_name] = val;
+      } else {
+         exif[tag_name] = tag_value;
+      }
+    } else {
+      exif[tag_name] = tag_value;
+    }
+  }
+
+  return {
+      id: row.id,
+      filepath: row.filepath,
+      filename: row.filename,
+      extension: row.extension,
+      fileType: row.file_type as FileType,
+      fileSize: row.file_size,
+      exif
+  };
 }
 
 export function getFailedImages(db: Database, runId: number): any[] {
