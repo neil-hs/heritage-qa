@@ -9,6 +9,36 @@ export interface RequiredExifTag {
   allow_variations?: boolean;
 }
 
+export interface ParseError {
+  line?: number;
+  column?: number;
+  message: string;
+}
+
+export interface ParseResult {
+  success: boolean;
+  config?: ProjectSpec;
+  errors: ParseError[];
+}
+
+export interface ValidationError {
+  path: string;
+  message: string;
+  value?: unknown;
+}
+
+export interface ValidationWarning {
+  path: string;
+  message: string;
+  suggestion?: string;
+}
+
+export interface ValidationResult {
+  valid: boolean;
+  errors: ValidationError[];
+  warnings: ValidationWarning[];
+}
+
 export interface ProjectSpec {
   project: {
     name: string;

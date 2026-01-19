@@ -1,0 +1,22 @@
+$schema: ./heritage-qc/schemas/config-schema.json
+
+project:
+  name: "Archive Digitization Project"
+
+format:
+  file_type: "TIFF"
+  allowed_extensions: [".tif", ".tiff"]
+
+dimensions:
+  min_long_edge: 4000
+
+color:
+  bit_depth: 8
+
+required_exif:
+  - tag: "Make"
+  - tag: "Model"
+  - tag: "DateTimeOriginal"
+
+validation:
+  run_jhove: true

@@ -1,0 +1,19 @@
+$schema: ./heritage-qc/schemas/config-schema.json
+
+project:
+  name: "My Project"
+  # client: "Client Name"
+  # date: 2025-01-19
+
+format:
+  file_type: "TIFF"
+  allowed_extensions: [".tif", ".tiff"]
+
+dimensions:
+  min_long_edge: 3000
+
+color:
+  bit_depth: 16
+
+validation:
+  run_jhove: true

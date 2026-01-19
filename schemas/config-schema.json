@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://heritage-qc.dev/schemas/project-spec.json",
+  "title": "Heritage QC Project Specification",
+  "type": "object",
+  "required": ["project", "format", "validation"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "client": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string", "format": "date" }
+      }
+    },
+    "format": {
+      "type": "object",
+      "required": ["file_type", "allowed_extensions"],
+      "properties": {
+        "file_type": {
+          "type": "string",
+          "enum": ["TIFF", "RAW", "JPEG", "PNG"]
+        },
+        "allowed_extensions": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^\\.[a-zA-Z0-9]+$" }
+        },
+        "enforce_single_type": { "type": "boolean", "default": true },
+        "compression": { "type": "string" },
+        "raw_format": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "file_type": { "const": "RAW" } } },
+          "then": { "required": ["raw_format"] }
+        }
+      ]
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "min_long_edge": { "type": "integer", "minimum": 1 },
+        "min_short_edge": { "type": "integer", "minimum": 1 },
+        "max_long_edge": { "type": "integer", "minimum": 1 },
+        "max_short_edge": { "type": "integer", "minimum": 1 },
+        "exact_dimensions": { "type": "boolean" }
+      }
+    },
+    "color": {
+      "type": "object",
+      "required": ["bit_depth"],
+      "properties": {
+        "bit_depth": { "type": "integer", "enum": [8, 16, 32] },
+        "color_space": { "type": "string" },
+        "icc_profile": { "type": "string" }
+      }
+    },
+    "required_exif": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tag"],
+        "properties": {
+          "tag": { "type": "string" },
+          "expected_value": { "type": "string" },
+          "allow_variations": { "type": "boolean" }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["run_jhove"],
+      "properties": {
+        "run_jhove": { "type": "boolean" },
+        "check_raw_validity": { "type": "boolean" },
+        "mixed_formats": { "type": "boolean" }
+      }
+    },
+    "naming": {
+      "type": "object",
+      "properties": {
+        "pattern": { "type": "string" },
+        "allow_spaces": { "type": "boolean" },
+        "required_prefix": { "type": "string" }
+      }
+    }
+  }
+}

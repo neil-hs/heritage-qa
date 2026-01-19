@@ -1,0 +1,28 @@
+$schema: ./heritage-qc/schemas/config-schema.json
+
+project:
+  name: "Museum Digitization Project"
+
+format:
+  file_type: "TIFF"
+  allowed_extensions: [".tif", ".tiff"]
+  compression: "Uncompressed"
+
+dimensions:
+  min_long_edge: 6000
+
+color:
+  bit_depth: 16
+  color_space: "Adobe RGB (1998)"
+
+required_exif:
+  - tag: "Make"
+  - tag: "Model"
+  - tag: "DateTime"
+  - tag: "Artist"
+
+validation:
+  run_jhove: true
+
+naming:
+  allow_spaces: false

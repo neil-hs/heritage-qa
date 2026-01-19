@@ -1,0 +1,18 @@
+$schema: ./heritage-qc/schemas/config-schema.json
+
+project:
+  name: "TIFF Master Files"
+
+format:
+  file_type: "TIFF"
+  allowed_extensions: [".tif", ".tiff"]
+  compression: "Uncompressed"
+
+dimensions:
+  min_long_edge: 8000
+
+color:
+  bit_depth: 16
+
+validation:
+  run_jhove: true

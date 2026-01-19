@@ -1,0 +1,21 @@
+$schema: ./heritage-qc/schemas/config-schema.json
+
+project:
+  name: "RAW Camera Files"
+
+format:
+  file_type: "RAW"
+  allowed_extensions: [".dng", ".arw", ".nef", ".cr2", ".cr3"]
+  raw_format: "DNG"
+
+dimensions:
+  min_long_edge: 6000
+
+required_exif:
+  - tag: "Make"
+  - tag: "Model"
+  - tag: "LensModel"
+
+validation:
+  run_jhove: false
+  check_raw_validity: true
