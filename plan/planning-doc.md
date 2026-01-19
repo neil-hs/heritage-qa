@@ -314,22 +314,23 @@ Client Requirements (PDF/DOCX)
 - All EXIF data stored correctly
 - Support all major RAW formats
 
-### Phase 4: Format-Specific Validation (Week 2)
+### Phase 4: Format-Specific Validation (Week 2) [COMPLETED]
 **Goal:** TIFF structure validation and RAW file checks
 
 **Components:**
-- JHOVE CLI wrapper (TIFF only)
-- JHOVE XML output parser
-- RAW file validator (basic checks)
-- Result storage in database
-- Resumable processing (checkpoint/resume)
-- JHOVE optimization: batch multiple files per invocation (reduces JVM startup overhead)
-- Optional parallel JHOVE workers (pool of 2-4) for large batches
+- JHOVE CLI wrapper (TIFF only) ✅
+- JHOVE XML output parser ✅
+- RAW file validator (basic checks) ✅
+- Result storage in database (Ready for integration)
+- Resumable processing (checkpoint/resume) (Part of orchestration)
+- JHOVE optimization: batch multiple files per invocation (reduces JVM startup overhead) ✅
+- Optional parallel JHOVE workers (pool of 2-4) for large batches (Ready for integration)
 
 **Deliverables:**
 - run-jhove.ts (TIFF files only)
 - validate-raw.ts (basic RAW checks)
 - XML parser for JHOVE output
+- Unit tests for JHOVE wrapper/parser and RAW validator
 - Resume capability
 - Progress tracking
 

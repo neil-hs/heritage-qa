@@ -13,7 +13,7 @@ To create a robust tool that validates heritage digitization images against clie
 - **Flexible Configuration**: Parse natural language client requirements into structured YAML configurations.
 - **Multi-Format Support**:
   - **TIFF**: Full structural validation via JHOVE and metadata checks.
-  - **RAW**: Support for camera raw formats (DNG, ARW, NEF, CR2, etc.).
+  - **RAW**: Basic validity checks via ExifTool (DNG, ARW, NEF, CR2, etc.).
 - **Metadata Validation**: Extract and validate EXIF/IPTC/XMP metadata from batches of 100-10,000+ images.
 - **Actionable Reporting**:
   - Interactive HTML reports.
@@ -82,13 +82,13 @@ heritage-qc/
 
 ## 📅 Development Roadmap
 
-**Current Status: Phase 1 (Foundation)**
+**Current Status: Phase 4 (Format-Specific Validation)**
 
 - [x] Planning & Architecture
-- [ ] **Phase 1**: Foundation & Data Layer (Database, Types)
-- [ ] **Phase 2**: Configuration System (YAML Parser, Schema Validation)
-- [ ] **Phase 3**: EXIF Extraction (ExifTool Wrapper)
-- [ ] **Phase 4**: Format-Specific Validation (JHOVE Integration)
+- [x] **Phase 1**: Foundation & Data Layer (Database, Types)
+- [x] **Phase 2**: Configuration System (YAML Parser, Schema Validation)
+- [x] **Phase 3**: EXIF Extraction (ExifTool Wrapper)
+- [x] **Phase 4**: Format-Specific Validation (JHOVE Integration)
 - [ ] **Phase 5**: Specification Validation Logic
 - [ ] **Phase 6**: Reporting & Fix Scripts
 
